@@ -14,6 +14,15 @@
 
 #define DEFAULT_CC_RBUF_CAPACITY 10
 
+struct ring_buffer_conf {
+    size_t capacity;
+
+    void* (*mem_alloc)  (size_t size);
+    void* (*mem_calloc) (size_t blocks, size_t size);
+    void  (*mem_free)   (void* block);
+};
+
+
 typedef struct ring_buffer_conf CC_RbufConf;
 typedef struct ring_buffer CC_Rbuf;
 

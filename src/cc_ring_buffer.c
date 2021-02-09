@@ -10,13 +10,6 @@
 #include "include/cc_ring_buffer.h"
 
 
-struct ring_buffer_conf {
-    size_t capacity;
-
-    void *(*mem_alloc)  (size_t size);
-    void *(*mem_calloc) (size_t blocks, size_t size);
-    void  (*mem_free)   (void *block);
-};
 
 
 struct ring_buffer {
