@@ -17,12 +17,22 @@ target_link_libraries(${PROJECT_NAME})
 set(${PROJECT_NAME}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include
   CACHE INTERNAL "${PROJECT_NAME}: Include directories" FORCE)
 
-include(FindPkgConfig QUIET)
-if(PKG_CONFIG_FOUND)
-  configure_file("collectionc.pc.in" "collectionc.pc" @ONLY)
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/collectionc.pc"
-    DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")
-endif()
+
+
+
+IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
+    
+ELSEIF(CMAKE_SYSTEM_NAME MATCHES "Linux")
+  include(FindPkgConfig QUIET)
+  if(PKG_CONFIG_FOUND)
+    configure_file("collectionc.pc.in" "collectionc.pc" @ONLY)
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/collectionc.pc"
+      DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")
+  endif()
+ENDIF(CMAKE_SYSTEM_NAME MATCHES "Windows")
+
+set_target_properties(collectc_static PROPERTIES VS_GLOBAL_VcpkgEnabled true)
+set_target_properties(collectc_static PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
 
 install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_static
   ARCHIVE DESTINATION lib
