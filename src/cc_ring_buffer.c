@@ -86,7 +86,7 @@ size_t cc_rbuf_size(CC_Rbuf *rbuf)
 
 void cc_rbuf_enqueue(CC_Rbuf *rbuf, uint64_t item)
 {
-    if (rbuf->head == rbuf->tail)
+    if (rbuf->head == rbuf->tail && rbuf->capacity==rbuf->size)
         rbuf->tail = (rbuf->tail + 1) % rbuf->capacity;
 
     rbuf->buf[rbuf->head] = item;

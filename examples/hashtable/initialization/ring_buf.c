@@ -21,5 +21,7 @@ int main(int argc, char **argv)
     uint64_t p2 = 0;
     cc_rbuf_dequeue(rbuf, &p2);
 
+    int* p3 = (int*)(p2);
+
     return 0;
 }
