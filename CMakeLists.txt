@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
+
+Project(Collection-C)
 
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
