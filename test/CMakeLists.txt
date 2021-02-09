@@ -1,11 +1,16 @@
 cmake_minimum_required(VERSION 3.5)
 project(collectc_test)
 
-find_package(PkgConfig)
-pkg_check_modules(CPPUTEST REQUIRED cpputest>=3.8)
+IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
+ 
+ELSEIF(CMAKE_SYSTEM_NAME MATCHES "Linux")
+    find_package(PkgConfig)
+    pkg_check_modules(CPPUTEST REQUIRED cpputest>=3.8)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CPPUTEST_CXX_FLAGS}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CPPUTEST_C_FLAGS}")
+ENDIF(CMAKE_SYSTEM_NAME MATCHES "Windows")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CPPUTEST_CXX_FLAGS}")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CPPUTEST_C_FLAGS}")
+
 
 set(array_test_sources array_test.c arrayTest.cpp)
 set(deque_test_sources deque_test.c dequeTest.cpp)
@@ -36,6 +41,21 @@ add_executable(treeset_test ${treeset_test_sources})
 add_executable(treetable_test ${treetable_test_sources})
 add_executable(rbuf_test ${rbuf_test_sources})
 add_executable(tsttable_test ${tsttable_test_sources})
+
+set_target_properties(array_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(deque_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(hashset_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(hashtable_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(list_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(pqueue_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(queue_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(slist_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(stack_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(treeset_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(treetable_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(rbuf_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_target_properties(tsttable_test PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+
 
 target_link_libraries(array_test collectc ${CPPUTEST_LDFLAGS})
 target_link_libraries(deque_test collectc ${CPPUTEST_LDFLAGS})
