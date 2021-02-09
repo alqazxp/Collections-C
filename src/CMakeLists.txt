@@ -33,6 +33,8 @@ ENDIF(CMAKE_SYSTEM_NAME MATCHES "Windows")
 
 set_target_properties(collectc_static PROPERTIES VS_GLOBAL_VcpkgEnabled true)
 set_target_properties(collectc_static PROPERTIES VS_GLOBAL_VcpkgTriplet x64-windows-static)
+set_property(TARGET collectc_static PROPERTY
+  MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_static
   ARCHIVE DESTINATION lib
