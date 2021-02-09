@@ -5,7 +5,6 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 enable_language(C)
 enable_language(CXX)
 add_subdirectory(src)
-add_subdirectory(test)
 IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
  
     add_subdirectory(examples)
