@@ -177,8 +177,8 @@ static enum cc_stat make_mid_subtree(
 
     (*begin)->c = key[0];
     CC_TSTTableNode *node = *begin;
-
-    for (size_t i = 1; i < key_len; i++) {
+    size_t i = 0;
+    for ( i = 1; i < key_len; i++) {
         node->mid = table->mem_calloc(1, sizeof(CC_TSTTableNode));
 
         if (!node->mid)
