@@ -22,6 +22,6 @@ int main(int argc, char **argv)
     p2 = cc_rbuf_peek2(rbuf, 0);
 
     int* p3 = (int*)(p2);
-
+    assert(*p3 == 22);
     return 0;
 }
