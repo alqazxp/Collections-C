@@ -36,5 +36,6 @@ size_t        cc_rbuf_size          (CC_Rbuf *rbuf);
 void          cc_rbuf_destroy       (CC_Rbuf *rbuf);
 uint64_t      cc_rbuf_peek          (CC_Rbuf *rbuf, int index);
 uint64_t      cc_rbuf_peek2         (CC_Rbuf* rbuf, int index);
+void          cc_rbuf_dump          (CC_Rbuf* rbuf);
 
 #endif

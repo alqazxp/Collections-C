@@ -3,25 +3,72 @@
 #include <cc_hashtable.h>
 #include "cc_ring_buffer.h"
 
+#include "../../utest.h"
+
 #include <assert.h>
 
-int main(int argc, char **argv)
-{
-    int* p = (int*)malloc(sizeof(int));
-    *p = 22;
-    CC_RbufConf config;
-    enum cc_stat c_state;
+UTEST_STATE();
 
-    CC_Rbuf* rbuf = NULL;
+CC_RbufConf config;
+enum cc_stat c_state;
+CC_Rbuf* rbuf = NULL;
+uint64_t loop = 1;
+
+int main(int argc, const char* const argv[]) 
+{
     cc_rbuf_conf_init(&config);
-    config.capacity = 1024;
+    config.capacity = 4;
+    
+    return utest_main(argc, argv);
+}
+
+UTEST(enqueue, overfullqueue)
+{
     c_state = cc_rbuf_conf_new(&config, &rbuf);
     assert(c_state == CC_OK);
-    cc_rbuf_enqueue(rbuf, (uint64_t)p);
-    uint64_t p2 = 0;
-    p2 = cc_rbuf_peek2(rbuf, 0);
+    for (loop = 1; loop <= 10; ++loop)
+    {
+        cc_rbuf_enqueue(rbuf, loop);
+    }
+    for (loop = 0; loop < 4; ++loop)
+    {
+        uint64_t v = cc_rbuf_peek2(rbuf, (int)(loop));
+        ASSERT_EQ(v, loop + 7);
+    }
 
-    int* p3 = (int*)(p2);
-    assert(*p3 == 22);
-    return 0;
+    cc_rbuf_destroy(rbuf);
+}
+
+UTEST(enqueue, notfull)
+{
+    c_state = cc_rbuf_conf_new(&config, &rbuf);
+    assert(c_state == CC_OK);
+    for (loop = 1; loop <= 3; ++loop)
+    {
+        cc_rbuf_enqueue(rbuf, loop);
+    }
+    for (loop = 0; loop < 3; ++loop)
+    {
+        uint64_t v = cc_rbuf_peek2(rbuf, (int)(loop));
+        ASSERT_EQ(v, loop + 1);
+    }
+
+    cc_rbuf_destroy(rbuf);
+}
+
+UTEST(enqueue, fullqueue)
+{
+    c_state = cc_rbuf_conf_new(&config, &rbuf);
+    assert(c_state == CC_OK);
+    for (loop = 1; loop <= 4; ++loop)
+    {
+        cc_rbuf_enqueue(rbuf, loop);
+    }
+    for (loop = 0; loop < 4; ++loop)
+    {
+        uint64_t v = cc_rbuf_peek2(rbuf, (int)(loop));
+        ASSERT_EQ(v, loop + 1);
+    }
+
+    cc_rbuf_destroy(rbuf);
 }

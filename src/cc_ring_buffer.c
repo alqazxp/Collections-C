@@ -9,7 +9,7 @@
 
 #include "include/cc_ring_buffer.h"
 
-
+#include <inttypes.h>
 
 
 struct ring_buffer {
@@ -86,15 +86,17 @@ size_t cc_rbuf_size(CC_Rbuf *rbuf)
 
 void cc_rbuf_enqueue(CC_Rbuf *rbuf, uint64_t item)
 {
-    if (rbuf->head == rbuf->tail && rbuf->capacity==rbuf->size)
-        rbuf->tail = (rbuf->tail + 1) % rbuf->capacity;
-
     rbuf->buf[rbuf->head] = item;
 
     rbuf->head = (rbuf->head + 1) % rbuf->capacity;
 
     if (rbuf->size < rbuf->capacity)
         ++rbuf->size;
+    else
+    {
+        rbuf->tail = rbuf->head;
+    }
+    cc_rbuf_dump(rbuf);
 }
 
 
@@ -119,5 +121,17 @@ uint64_t cc_rbuf_peek(CC_Rbuf *rbuf, int index)
 uint64_t cc_rbuf_peek2(CC_Rbuf* rbuf, int index)
 {
     int bufPos = (index + rbuf->tail) % rbuf->capacity;
-    return rbuf->buf[index];
+    return rbuf->buf[bufPos];
+}
+
+void cc_rbuf_dump(CC_Rbuf* rbuf)
+{
+    size_t pos = 0;
+    uint64_t v = 0;
+    while (pos< cc_rbuf_size(rbuf))
+    {
+        v = cc_rbuf_peek2(rbuf, pos++);
+        printf("%" PRIu64 ":", v);
+    }
+    printf("\n");
 }
