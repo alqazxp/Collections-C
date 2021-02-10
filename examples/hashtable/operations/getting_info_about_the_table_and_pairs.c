@@ -43,4 +43,6 @@ int main(int argc, char **argv)
 
 
     cc_hashtable_destroy(table);
+
+    return 0;
 }
