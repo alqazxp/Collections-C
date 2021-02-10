@@ -666,7 +666,7 @@ enum cc_stat cc_array_filter(CC_Array *ar, bool (*pred) (const void*), CC_Array 
 
     size_t f = 0;
     size_t i = 0;
-    for (size_t i = 0; i < ar->size; i++) {
+    for (i = 0; i < ar->size; i++) {
         if (pred(ar->buffer[i])) {
             filtered->buffer[f++] = ar->buffer[i];
             filtered->size++;
