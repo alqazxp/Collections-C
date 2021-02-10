@@ -96,7 +96,6 @@ void cc_rbuf_enqueue(CC_Rbuf *rbuf, uint64_t item)
     {
         rbuf->tail = rbuf->head;
     }
-    cc_rbuf_dump(rbuf);
 }
 
 

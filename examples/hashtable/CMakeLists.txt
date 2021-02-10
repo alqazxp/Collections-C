@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(collectc_hashtable_examples)
 
+
+
 include_directories(${PROJECT_SOURCE_DIR}/include ${collectc_INCLUDE_DIRS})
 
 add_executable(string_keys initialization/string_keys.c)
