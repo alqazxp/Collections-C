@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     // Size represents the number of key value pairs currently
     // stored inside the table.
     size_t size = cc_hashtable_size(table);
-    printf("Table size: %%zu\n", size);
+    printf("Table size: %zu\n", size);
 
     // ************************************************************
     // Getting the capacity of the table
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     // Capacity represents the size of the internal array. (check
     // the initialization example for more info).
     size_t capacity = cc_hashtable_capacity(table);
-    printf("Table capacity: %%zu\n", capacity);
+    printf("Table capacity: %zu\n", capacity);
 
     // ************************************************************
     // Check if a key is present
