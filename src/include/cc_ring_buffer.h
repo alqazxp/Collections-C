@@ -35,6 +35,6 @@ bool          cc_rbuf_is_empty      (CC_Rbuf *rbuf);
 size_t        cc_rbuf_size          (CC_Rbuf *rbuf);
 void          cc_rbuf_destroy       (CC_Rbuf *rbuf);
 uint64_t      cc_rbuf_peek          (CC_Rbuf *rbuf, int index);
-
+uint64_t      cc_rbuf_peek2         (CC_Rbuf* rbuf, int index);
 
 #endif

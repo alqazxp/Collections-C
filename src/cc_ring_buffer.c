@@ -115,3 +115,9 @@ uint64_t cc_rbuf_peek(CC_Rbuf *rbuf, int index)
 {
     return rbuf->buf[index];
 }
+
+uint64_t cc_rbuf_peek2(CC_Rbuf* rbuf, int index)
+{
+    int bufPos = (index + rbuf->tail) % rbuf->capacity;
+    return rbuf->buf[index];
+}

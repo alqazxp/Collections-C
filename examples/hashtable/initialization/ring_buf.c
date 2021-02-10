@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     assert(c_state == CC_OK);
     cc_rbuf_enqueue(rbuf, (uint64_t)p);
     uint64_t p2 = 0;
-    cc_rbuf_dequeue(rbuf, &p2);
+    p2 = cc_rbuf_peek2(rbuf, 0);
 
     int* p3 = (int*)(p2);
 
